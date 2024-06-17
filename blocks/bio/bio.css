@@ -2,6 +2,7 @@
 border-radius: 50%;
 object-fit: cover;
 }
+
 .bio-wrapper .bio.block.highlighted img {
 border: 2px solid blue;
 box-sizing: border-box;

@@ -1,6 +1,7 @@
 .tags {
     margin-bottom: var(--spacing-s);
 }
+
 .card-tag {
     color: var(--color-heart-red);
     border: 1px solid var(--color-heart-red);
