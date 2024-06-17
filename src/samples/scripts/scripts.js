@@ -1,3 +1,6 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/no-absolute-path */
 import {
   sampleRUM,
   buildBlock,
@@ -14,7 +17,7 @@ import {
   getMetadata,
   loadScript,
   toCamelCase,
-  loadCSS
+  loadCSS,
 } from '/scripts/aem.js';
 
 import { } from '/plusplus/src/siteConfig.js';
@@ -82,7 +85,7 @@ async function loadFonts() {
 // added for modal handling, see adobe docs
 // eslint-disable-next-line no-unused-vars
 function autolinkModals(element) {
-  element.addEventListener('click', async(e) => {
+  element.addEventListener('click', async (e) => {
     const origin = e.target.closest('a');
 
     if (origin && origin.href && origin.href.includes('/modals/')) {
@@ -159,7 +162,7 @@ async function loadEager(doc) {
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
-  window.cmsplus.debug('loadLazy')
+  window.cmsplus.debug('loadLazy');
   const main = doc.querySelector('main');
   await loadBlocks(main);
   autolinkModals(doc); // added for modal handling, see adobe docs

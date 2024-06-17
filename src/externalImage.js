@@ -1,6 +1,8 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/no-absolute-path */
 // External image handling, part of block-party; but modified to be a plugin for PlusPlus
 import {
-  createOptimizedPicture as libCreateOptimizedPicture
+  createOptimizedPicture as libCreateOptimizedPicture,
 } from '/scripts/aem.js';
 
 /**

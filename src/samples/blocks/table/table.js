@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /*
  * Table Block
  * Recreate a table

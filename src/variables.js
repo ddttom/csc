@@ -136,17 +136,14 @@ export async function constructGlobal() {
     window.siteConfig['$system:millisecond$'] = new Date().getMilliseconds();
     window.siteConfig['$system:version$'] = window.cmsplus.release;
 
-
-    if (window.siteConfig?.["$meta:wantdublincore$"]) {
-      window.siteConfig["$meta:enabledublincore$"] = window.siteConfig["$meta:wantdublincore$"];
+    if (window.siteConfig?.['$meta:wantdublincore$']) {
+      window.siteConfig['$meta:enabledublincore$'] = window.siteConfig['$meta:wantdublincore$'];
     }
     if (window.siteConfig?.['$system:allowtracking$']) {
       window.siteConfig['$system:enabletracking$'] = window.siteConfig['$system:allowtracking$'];
-
     }
     if (window.siteConfig?.['$system:allowtracking$']) {
       window.siteConfig['$system:enabletracking$'] = window.siteConfig['$system:allowtracking$'];
-
     }
     const month = months[thismonth];
     const firstLetter = month.charAt(0).toUpperCase();

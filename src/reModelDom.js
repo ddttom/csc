@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
-import { getConfigTruth } from './variables.js';
 
 export function removeMeta() {
   const keepMetadataNames = [
@@ -132,7 +131,7 @@ export async function tidyDOM() {
   const siteDomain = window.location.hostname;
   const currentPage = window.location.href;
 
- // Open external link in the new window
+  // Open external link in the new window
   links.forEach((link) => {
     const linkDomain = new URL(link.href).hostname;
     if (linkDomain !== siteDomain && !link.href.startsWith('/') && !link.href.startsWith('#')) {

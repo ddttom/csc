@@ -1,3 +1,6 @@
+/* eslint-disable no-unsafe-optional-chaining */
+/* eslint-disable import/no-absolute-path */
+/* eslint-disable import/no-unresolved */
 // Place any Client-Centered Code/Configuration in here
 import { loadScript } from '/scripts/aem.js';
 import { getConfigTruth } from './variables.js';
@@ -7,11 +10,12 @@ async function loadModule(moduleName, functionName) {
     const module = await import(moduleName);
     if (typeof module[functionName] === 'function') {
       return module[functionName];
-    } else {
-      console.error(`Function '${functionName}' not found in module '${moduleName}'`);
-      return null;
     }
+    // eslint-disable-next-line no-console
+    console.error(`Function '${functionName}' not found in module '${moduleName}'`);
+    return null;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(`Error loading module '${moduleName}':`, error);
     return null;
   }
@@ -56,12 +60,15 @@ export default async function enableTracking() {
         }
       }
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.log('failed to add cmsplus data to adobeDataLayer', e);
     }
   }
   if ((window.siteConfig?.['$system:trackingscript$']).includes('.googletagmanager')) {
     window.dataLayer = window.dataLayer || [];
+    // eslint-disable-next-line no-inner-declarations
     function gtag() {
+      // eslint-disable-next-line no-undef, prefer-rest-params
       dataLayer.push(arguments);
     }
     gtag('js', new Date());
