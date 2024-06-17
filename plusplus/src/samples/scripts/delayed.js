@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 // eslint-disable-next-line import/no-cycle
 import { sampleRUM } from './aem.js';
 

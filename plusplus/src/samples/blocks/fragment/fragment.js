@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /*
  * Fragment Block
  * Include content on a page as a fragment.

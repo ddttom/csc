@@ -41,16 +41,12 @@ The final plusplus environment also requires configuration see <https://github.c
 
 ## Installation
 
-Use GitHub cli to help fork and create your project <https://github.com/cli/cli>  <https://cli.github.com/manual/>
+first of all fork adobe boilerplate, <https://github.com/adobe/aem-boilerplate>
 
-In the below instructions, replace {FORKNAME} with the name of your new Repo.  If I were creating ddttom.com, I would use
-
-gh repo fork --fork-name ddttom <https://github.com/adobe/aem-boilerplate.git>
+then using the shell CD into the cloned boilerplate folder and run this;
 
 ```sh
 
-gh repo fork --fork-name {FORKNAME} https://github.com/adobe/aem-boilerplate.git
-cd {FORKNAME}
 git subtree add --squash  --prefix config  https://github.com/Digital-Domain-Technologies-Ltd/plusplusconfig main
 git subtree add --squash  --prefix plusplus  https://github.com/Digital-Domain-Technologies-Ltd/plusplus main
 git subtree add --squash  --prefix tools  https://github.com/Digital-Domain-Technologies-Ltd/plusplustools main

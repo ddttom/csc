@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-use-before-define */
 export default function decorate(block) {
   const headers = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
   const indexBlock = document.querySelector('.index');
@@ -34,7 +36,7 @@ export default function decorate(block) {
   });
 
   function buildIndex() {
-    const indexContent = document.querySelector('.index-content');
+    const indexContent2 = document.querySelector('.index-content');
     const ul = document.createElement('ul');
     headers.forEach((header, index) => {
       const id = `header-${index}`;
@@ -47,7 +49,7 @@ export default function decorate(block) {
       li.appendChild(a);
       ul.appendChild(li);
     });
-    indexContent.innerHTML = '';
-    indexContent.appendChild(ul);
+    indexContent2.innerHTML = '';
+    indexContent2.appendChild(ul);
   }
 }

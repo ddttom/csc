@@ -17,6 +17,7 @@ function loadAnalyticsDebugPanel() {
 
   return content;
 }
+// eslint-disable-next-line import/prefer-default-export
 export async function initializeTracker() {
   // eslint-disable-next-line no-use-before-define
   await handleMetadataTracking();
@@ -59,6 +60,7 @@ async function handleMetadataTracking() {
                     previousPageName = previousPageName.startsWith('/') ? previousPageName.substring(1) : previousPageName;
                     previousPageName = previousPageName.endsWith('/') ? previousPageName.slice(0, -1) : previousPageName;
                   } catch (error) {
+                    // eslint-disable-next-line no-console
                     console.log('Error parsing URL: ', error);
                     previousPageName = 'none';
                   }

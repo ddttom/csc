@@ -1,42 +1,37 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable import/no-absolute-path */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable no-restricted-syntax */
 /* site configuration module */
-
-
-let releaseVersion = 'plusplus 1.0.3';
-
 import {
   tidyDOM,
   possibleMobileFix,
-  swiftChangesToDOM
+  swiftChangesToDOM,
 } from './reModelDom.js';
-
 import {
-  constructGlobal
+  constructGlobal,
 } from './variables.js';
-
 import {
-  initializeClientConfig
+  initializeClientConfig,
 } from './clientConfig.js';
-
 import {
   handleMetadataJsonLd,
-  createJSON
+  createJSON,
 } from './jsonHandler.js';
-
 import { } from './externalImage.js';
+import {} from '/config/config.js';
+import {} from '/plusplus/src/clientExpressions.js';
 
-await import('/config/config.js');
-
-import {} from "/plusplus/src/clientExpressions.js";
+const releaseVersion = 'plusplus 1.0.3';
 
 function debugMessage(message) {
   const time = new Date().toLocaleTimeString();
+  // eslint-disable-next-line no-console
   console.log(`${time}: ${message}`);
 }
 function noAction() {
 }
 export async function initializeSiteConfig() {
-
 // Determine the environment and locality based on the URL
   const getEnvironment = () => {
     // Define an array of environments with their identifying substrings in the URL
@@ -61,13 +56,13 @@ export async function initializeSiteConfig() {
   // a locality is defined as a place to serve Helix Content for a regulated industry
   const getLocality = () => {
     const localities = [
-      { key: "localhost", value: "local" },
-      { key: "127.0.0.1", value: "local" },
-      { key: "-stage", value: "stage" },
-      { key: "fastly", value: "preprod" },
-      { key: "preprod.", value: "preprod" },
-      { key: "-prod", value: "prod" },
-      { key: "-dev", value: "dev" },
+      { key: 'localhost', value: 'local' },
+      { key: '127.0.0.1', value: 'local' },
+      { key: '-stage', value: 'stage' },
+      { key: 'fastly', value: 'preprod' },
+      { key: 'preprod.', value: 'preprod' },
+      { key: '-prod', value: 'prod' },
+      { key: '-dev', value: 'dev' },
     ];
     for (const env of localities) {
       if (window.location.hostname.includes(env.key)) {
@@ -88,7 +83,7 @@ export async function initializeSiteConfig() {
   if (window?.debug === 'y') {
     window.cmsplus.debug = debugMessage;
   }
-  window.cmsplus.debug("initializing site config");
+  window.cmsplus.debug('initializing site config');
   window.cmsplus.callbackPageLoadChain = [];
   window.cmsplus.callbackAfter3SecondsChain = [];
 
@@ -102,10 +97,7 @@ export async function initializeSiteConfig() {
   if (window.cmsplus.environment === 'preview') {
     import('./debugPanel.js');
   }
-
   // all configuration completed, make any further callbacks from here
-
-
   await tidyDOM();
   await handleMetadataJsonLd();
   await window.cmsplus?.callbackMetadataTracker?.();
