@@ -14,6 +14,7 @@
   /* colors */
   --green-color: #8cc63f;
   --blue-color: #06c4fd;
+  --white-color: white;
   /* --link-color: #035fe6;
   --link-hover-color: #136ff6;
   --background-color: white;
@@ -22,9 +23,9 @@
   --text-color: black; */
 
   /* fonts */
-  --body-font-family: exo-regular, roboto-fallback;
-  --heading-font-family: exo-bold, roboto-fallback;
-  --font-family: exo-light, roboto-fallback;
+  --body-font-family: exo-regular;
+  --heading-font-family: exo-bold;
+  --font-family: exo-light;
 
   /* body sizes */
   --body-font-size-m: 30px;
@@ -207,12 +208,14 @@ main img {
 
 /* sections */
 main .section {
-  padding: 64px 16px;
+  max-width: 1440px;
+  margin-inline: auto;
+  /* padding: 64px 16px; */
 }
 
 @media (width >= 600px) {
   main .section {
-    padding: 64px 32px;
+    /* padding: 64px 32px; */
   }
 }
 
@@ -228,3 +231,5 @@ main .section.light,
 main .section.highlight {
   background-color: var(--light-color);
 }
+
+header {}
