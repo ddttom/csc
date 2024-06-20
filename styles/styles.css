@@ -12,20 +12,22 @@
 
 :root {
   /* colors */
-  --link-color: #035fe6;
+  --green-color: #8cc63f;
+  --blue-color: #06c4fd;
+  /* --link-color: #035fe6;
   --link-hover-color: #136ff6;
   --background-color: white;
   --light-color: #eee;
   --dark-color: #ccc;
-  --text-color: black;
+  --text-color: black; */
 
   /* fonts */
-  --body-font-family: roboto, roboto-fallback;
-  --heading-font-family: var(--body-font-family);
-  --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
+  --body-font-family: exo-regular, roboto-fallback;
+  --heading-font-family: exo-bold, roboto-fallback;
+  --font-family: exo-light, roboto-fallback;
 
   /* body sizes */
-  --body-font-size-m: 22px;
+  --body-font-size-m: 30px;
   --body-font-size-s: 18px;
   --body-font-size-xs: 16px;
 
@@ -50,9 +52,9 @@
 
 @media (width >= 900px) {
   :root {
-    --heading-font-size-xxl: 60px;
-    --heading-font-size-xl: 48px;
-    --heading-font-size-l: 36px;
+    --heading-font-size-xxl: 70px;
+    --heading-font-size-xl: 56px;
+    --heading-font-size-l: 44px;
     --heading-font-size-m: 30px;
     --heading-font-size-s: 24px;
     --heading-font-size-xs: 22px;
@@ -67,6 +69,8 @@ body {
   color: var(--text-color);
   background-color: var(--background-color);
   display: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body.appear {
@@ -91,12 +95,12 @@ h6 {
   scroll-margin: calc(var(--nav-height) + 1em);
 }
 
-h1 { font-size: var(--heading-font-size-xxl); }
-h2 { font-size: var(--heading-font-size-xl); }
-h3 { font-size: var(--heading-font-size-l); }
-h4 { font-size: var(--heading-font-size-m); }
-h5 { font-size: var(--heading-font-size-s); }
-h6 { font-size: var(--heading-font-size-xs); }
+h1 { font-size: var(--heading-font-size-xxl); line-height: 42px; }
+h2 { font-size: var(--heading-font-size-xl); line-height: 42px;}
+h3 { font-size: var(--heading-font-size-l); line-height: 42px;}
+h4 { font-size: var(--heading-font-size-m); list-style: 42px}
+h5 { font-size: var(--heading-font-size-s); line-height: 32px;}
+h6 { font-size: var(--heading-font-size-xs); line-height: 32px; }
 
 p,
 dl,
