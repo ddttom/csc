@@ -29,8 +29,19 @@ function extractPaths(obj, currentPath = '') {
 export async function control() {
   window.dam = [];
   const urlString = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets.4.json';
+
+  const username = 'admin';
+  const password = 'admin';
+
+  // Encode the username and password
+  const credentials = btoa(`${username}:${password}`);
   try {
-    const response = await fetch(urlString);
+    const response = await fetch(urlString, {
+      headers: {
+        'Authorization': `Basic ${credentials}`,
+        'Content-Type': 'application/json'
+      }
+    });
     if (!response.ok) {
       throw new Error(`HTTP error ${response.status}`);
     }
