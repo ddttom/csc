@@ -1,4 +1,4 @@
-function extractPaths(obj, urlString, currentPath = "") {
+function extractPaths(obj, currentPath = "") {
   let folderAssets = [];
   for (const key in obj) {
     if (typeof obj[key] === "object" && obj[key] !== null) {
@@ -11,14 +11,14 @@ function extractPaths(obj, urlString, currentPath = "") {
       } else if (obj[key]["jcr:primaryType"] === "sling:Folder") {
         // We've found a folder, recursively process it
         const newPath = `${currentPath}/${key}`;
-        const subFolderAssets = extractPaths(obj[key], urlString, newPath);
+        const subFolderAssets = extractPaths(obj[key], newPath);
         // If the subfolder has assets, add it to window.dam
         if (subFolderAssets.length > 0) {
           window.dam.push([key, subFolderAssets]);
         }
       } else {
         // Continue traversing
-        const subAssets = extractPaths(obj[key], urlString,`${currentPath}/${key}`);
+        const subAssets = extractPaths(obj[key],`${currentPath}/${key}`);
         folderAssets = folderAssets.concat(subAssets);
       }
     }
@@ -51,10 +51,20 @@ async function control() {
 
     const finalString = "http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets";
     const data = await response.json();
-    extractPaths(data,finalString);
+    extractPaths(data);
+
+    // Iterate over window.dam and prepend finalString to leaf array contents
+    window.dam = window.dam.map(item => {
+      if (Array.isArray(item[1])) {
+        return [item[0], item[1].map(path => finalString + path)];
+      }
+      return item;
+    });
+
     console.log(window.dam);
   } catch (error) {
     console.error("Error fetching data", error);
   }
 }
+
 control();
