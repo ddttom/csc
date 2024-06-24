@@ -67,4 +67,12 @@ async function control() {
   }
 }
 
+export function updateDynamicImage() {
+  const dynamicElement = document.querySelector('.dynamic-two');
+    const newImgElement = document.createElement('img');
+    newImgElement.src = window.dam[0][0];
+    dynamicElement.innerHTML = ''; // Clear existing content
+    dynamicElement.appendChild(newImgElement); 
+}
+
 control();
