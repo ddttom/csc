@@ -1,3 +1,25 @@
+  
+function updateDynamicImages() {
+  // Define the class names for the dynamic elements
+  const dynamicClasses = ['dynamic-one', 'dynamic-two', 'dynamic-three'];
+
+  // Iterate through the dynamic elements and update their images
+  dynamicClasses.forEach((dynamicClass, index) => {
+    const dynamicElement = document.querySelector(`.${dynamicClass}`);
+    if (dynamicElement) {
+      // Remove all child nodes of the dynamic element
+      while (dynamicElement.firstChild) {
+        dynamicElement.removeChild(dynamicElement.firstChild);
+      }
+      // Create a new img element with the updated source
+      const newImgElement = document.createElement('img');
+      newImgElement.src = window.dam[0][index];
+      dynamicElement.appendChild(newImgElement);
+    }
+  });
+}
+
+
 export default function decorate(block) {
   // Get all DIV children of the block
   const divEl = [...block.children].filter((child) => child.tagName === 'DIV');
@@ -28,29 +50,9 @@ export default function decorate(block) {
     parent.classList.add('content');
     parent.insertAdjacentElement('afterend', pZero);
   }
-
-}
-  
-function updateDynamicImages() {
-  // Define the class names for the dynamic elements
-  const dynamicClasses = ['dynamic-one', 'dynamic-two', 'dynamic-three'];
-
-  // Iterate through the dynamic elements and update their images
-  dynamicClasses.forEach((dynamicClass, index) => {
-    const dynamicElement = document.querySelector(`.${dynamicClass}`);
-    if (dynamicElement) {
-      // Remove all child nodes of the dynamic element
-      while (dynamicElement.firstChild) {
-        dynamicElement.removeChild(dynamicElement.firstChild);
-      }
-      // Create a new img element with the updated source
-      const newImgElement = document.createElement('img');
-      newImgElement.src = window.dam[0][index];
-      dynamicElement.appendChild(newImgElement);
-    }
-  });
-}
-
   if (window.dam) {
-  updateDynamicImages();
+    updateDynamicImages();
   }
+}
+
+  
