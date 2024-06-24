@@ -1,14 +1,13 @@
 function updateDynamicImage() {
   const dynamicElement = document.querySelector('.dynamic-two');
-  if (dynamicElement && window.dam && window.dam[0] && window.dam[0][1]) {
+  
     // Create a new img element with the updated source
     const newImgElement = document.createElement('img');
-    newImgElement.src = window.dam[0][1]; // Changed index to [1]
+    newImgElement.src = window.dam[0][0];
 
     // Replace the existing child (if any) with the new img element
     dynamicElement.innerHTML = ''; // Clear existing content
-    dynamicElement.appendChild(newImgElement);
-  }
+    dynamicElement.appendChild(newImgElement); 
 }
 
 export default function decorate(block) {
