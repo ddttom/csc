@@ -11,11 +11,13 @@
  */
 
 :root {
+  
   /* colors */
   --green-color: #8cc63f;
   --blue-color: #06c4fd;
-  --white-color: #ffffff;
-  --black-color: #000000;
+  --white-color: #fff;
+  --black-color: #000;
+
   /* --link-color: #035fe6;
   --link-hover-color: #136ff6;
   --background-color: white;
@@ -97,9 +99,20 @@ h6 {
   scroll-margin: calc(var(--nav-height) + 1em);
 }
 
-h1 { font-size: var(--heading-font-size-xxl); line-height: 62px;}
-h2 { font-size: var(--heading-font-size-xl); line-height: 52px;}
-h3 { font-size: var(--heading-font-size-l); line-height: 1.2px;}
+h1 { 
+   font-size: var(--heading-font-size-xxl); 
+   line-height: 62px;
+  }
+
+h2 {
+  font-size: var(--heading-font-size-xl); 
+  line-height: 52px;
+}
+
+h3 { 
+  font-size: var(--heading-font-size-l); 
+  line-height: 1.2px;
+}
 
 h4 { 
   font-family:var(--body-font-family);
@@ -107,8 +120,15 @@ h4 {
   line-height: 1.2;
 }
 
-h5 { font-size: var(--heading-font-size-s); line-height: 1.2;}
-h6 { font-size: var(--heading-font-size-xs); line-height: 32px; }
+h5 { 
+  font-size: var(--heading-font-size-s); 
+  line-height: 1.2;
+}
+
+h6 { 
+  font-size: var(--heading-font-size-xs); 
+  line-height: 32px; 
+}
 
 p,
 dl,
@@ -217,14 +237,17 @@ main img {
 main .section {
   max-width: 1440px;
   margin-inline: auto;
+
   /* padding: 64px 16px; */
 }
 
+/*
 @media (width >= 600px) {
   main .section {
-    /* padding: 64px 32px; */
+     padding: 64px 32px; 
   }
 }
+*/
 
 @media (width >= 900px) {
   .section > div {
