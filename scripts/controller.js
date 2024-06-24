@@ -37,7 +37,6 @@ export async function control() {
 
   try {
     const response = await fetch(urlString, {
-      mode: 'no-cors',
       headers: {
         Authorization: `Basic ${credentials}`,
       },
