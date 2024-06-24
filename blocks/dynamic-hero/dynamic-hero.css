@@ -2,21 +2,10 @@
 .section .dynamic-hero-wrapper {
 }
 
-main .dynamic-hero > div {
-  max-width: unset;
-  margin: 0;
-}
 
 main .dynamic-hero {
   padding: 0;
   display: grid;
-  /* grid-template-areas:
-    'dynamic-one dynamic-one dynamic-one'
-    'dynamic-two dynamic-two dynamic-two'
-    'dynamic-three dynamic-three dynamic-three'; */
-}
-
-main .dynamic-hero {
   max-width: 1200px;
   margin-inline: auto;
 }
@@ -90,11 +79,11 @@ main .dynamic-hero .dynamic-two{
 }
 
 main .dynamic-hero .dynamic-three{
+
   /* display: none; */
   grid-area: dynamic-three;
   max-width: 400px;
-  align-self: self-end;
-  justify-self: end;
+  place-self: end;
   margin-bottom: -10rem;
   margin-right: 5rem;
 
