@@ -36,8 +36,6 @@ export async function decorate(block) {
     }
     const data = await response.json();
     window.dam = [];
-    // Function to recursively traverse the JSON and extract file paths
-
     extractPaths(data);
   } catch (error) {
     console.error('Error fetching or processing the data:', error);
