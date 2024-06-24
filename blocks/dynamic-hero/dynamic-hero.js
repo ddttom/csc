@@ -29,7 +29,7 @@ export default function decorate(block) {
     parent.insertAdjacentElement('afterend', pZero);
   }
 
-  
+}
   
   function updateDynamicImages() {
     // Define the class names for the dynamic elements
@@ -58,6 +58,6 @@ export default function decorate(block) {
       }
     });
   }
-}
-  // Call the function to update the images
+  if (window.Dam) {
   updateDynamicImages();
+  }
