@@ -47,7 +47,9 @@
 
 @media (width >= 900px) { 
   .dynamic-columns-container > div {
-    margin: 0 0 3rem 4rem;
+    margin-inline: auto;
+    box-sizing: border-box;
+    padding: 0 4rem;
   }
 
   .dynamic-columns-container > div:first-child   {
