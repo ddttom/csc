@@ -28,4 +28,36 @@ export default function decorate(block) {
     parent.classList.add('content');
     parent.insertAdjacentElement('afterend', pZero);
   }
+
+  
+  
+  function updateDynamicImages() {
+    // Define the class names for the dynamic elements
+    const dynamicClasses = ['dynamic-one', 'dynamic-two', 'dynamic-three'];
+
+    // Iterate through the dynamic elements and update their images
+    dynamicClasses.forEach((dynamicClass, index) => {
+      const dynamicElement = document.querySelector(`.${dynamicClass}`);
+      if (dynamicElement) {
+        const pictureElement = dynamicElement.querySelector('picture');
+        if (pictureElement) {
+          const imgElement = pictureElement.querySelector('img');
+          if (imgElement) {
+            // Update the image source
+            imgElement.src = window.Dam[0][index];
+          }
+          // Remove all child nodes of the picture element
+          while (pictureElement.firstChild) {
+            pictureElement.removeChild(pictureElement.firstChild);
+          }
+          // Create a new img element with the updated source
+          const newImgElement = document.createElement('img');
+          newImgElement.src = window.Dam[0][index];
+          pictureElement.appendChild(newImgElement);
+        }
+      }
+    });
+  }
 }
+  // Call the function to update the images
+  updateDynamicImages();
