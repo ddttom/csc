@@ -7,7 +7,7 @@ function extractPaths(obj, currentPath = "") {
         obj[key]["jcr:primaryType"] === "dam:AssetContent"
       ) {
         // We've found an asset, add its path to the folderAssets array
-        folderAssets.push(urlString+currentPath);
+        folderAssets.push(currentPath);
       } else if (obj[key]["jcr:primaryType"] === "sling:Folder") {
         // We've found a folder, recursively process it
         const newPath = `${currentPath}/${key}`;
