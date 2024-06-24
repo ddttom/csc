@@ -39,8 +39,14 @@ async function control() {
       method: "GET",
       headers: {
         Authorization: auth,
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
+      mode: "cors",
     });
+
+    console.log("Response Headers:", response.headers);
+    console.log("Response Status:", response.status);
 
     if (!response.ok) {
       throw new Error("Network response was not ok " + response.statusText);
@@ -53,5 +59,4 @@ async function control() {
     console.error("Error fetching data", error);
   }
 }
-
 control();
