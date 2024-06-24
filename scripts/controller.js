@@ -26,12 +26,21 @@ function extractPaths(obj, currentPath = '') {
   }
   return folderAssets;
 }
-
-// eslint-disable-next-line no-unused-vars
 export async function control() {
   window.dam = [];
+  const urlString = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets.-1.json';
+
+  const username = 'admin';
+  const password = 'admin';
+
+  const credentials = btoa(`${username}:${password}`);
+
   try {
-    const response = await fetch('http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets.-1.json');
+    const response = await fetch(urlString, {
+      headers: {
+        Authorization: `Basic ${credentials}`,
+      },
+    });
     if (!response.ok) {
       throw new Error(`HTTP error ${response.status}`);
     }
@@ -42,4 +51,5 @@ export async function control() {
     console.error('Error fetching or processing the data:', error);
   }
 }
+
 window.cmsplus.callbackPageLoadChain.push(control);
