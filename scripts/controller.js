@@ -23,6 +23,7 @@ function extractPaths(obj, currentPath = "") {
       }
     }
   }
+  window.cmsplus.debug('ExtractPaths');
   return folderAssets;
 }
 
@@ -61,7 +62,7 @@ async function control() {
       return item;
     });
 
-    console.log(window.dam);
+    window.cmsplus.debug(window.dam);
   } catch (error) {
     console.error("Error fetching data", error);
   }
