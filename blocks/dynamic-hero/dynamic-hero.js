@@ -31,33 +31,26 @@ export default function decorate(block) {
 
 }
   
-  function updateDynamicImages() {
-    // Define the class names for the dynamic elements
-    const dynamicClasses = ['dynamic-one', 'dynamic-two', 'dynamic-three'];
+function updateDynamicImages() {
+  // Define the class names for the dynamic elements
+  const dynamicClasses = ['dynamic-one', 'dynamic-two', 'dynamic-three'];
 
-    // Iterate through the dynamic elements and update their images
-    dynamicClasses.forEach((dynamicClass, index) => {
-      const dynamicElement = document.querySelector(`.${dynamicClass}`);
-      if (dynamicElement) {
-        const pictureElement = dynamicElement.querySelector('picture');
-        if (pictureElement) {
-          const imgElement = pictureElement.querySelector('img');
-          if (imgElement) {
-            // Update the image source
-            imgElement.src = window.dam[0][index];
-          }
-          // Remove all child nodes of the picture element
-          while (pictureElement.firstChild) {
-            pictureElement.removeChild(pictureElement.firstChild);
-          }
-          // Create a new img element with the updated source
-          const newImgElement = document.createElement('img');
-          newImgElement.src = window.dam[0][index];
-          pictureElement.appendChild(newImgElement);
-        }
+  // Iterate through the dynamic elements and update their images
+  dynamicClasses.forEach((dynamicClass, index) => {
+    const dynamicElement = document.querySelector(`.${dynamicClass}`);
+    if (dynamicElement) {
+      // Remove all child nodes of the dynamic element
+      while (dynamicElement.firstChild) {
+        dynamicElement.removeChild(dynamicElement.firstChild);
       }
-    });
-  }
+      // Create a new img element with the updated source
+      const newImgElement = document.createElement('img');
+      newImgElement.src = window.dam[0][index];
+      dynamicElement.appendChild(newImgElement);
+    }
+  });
+}
+
   if (window.dam) {
   updateDynamicImages();
   }

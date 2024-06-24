@@ -11,7 +11,7 @@ function extractPaths(obj, urlString, currentPath = "") {
       } else if (obj[key]["jcr:primaryType"] === "sling:Folder") {
         // We've found a folder, recursively process it
         const newPath = `${currentPath}/${key}`;
-        const subFolderAssets = extractPaths(obj[key], newPath);
+        const subFolderAssets = extractPaths(obj[key], urlString, newPath);
         // If the subfolder has assets, add it to window.dam
         if (subFolderAssets.length > 0) {
           window.dam.push([key, subFolderAssets]);
