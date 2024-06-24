@@ -17,7 +17,7 @@ import {
   getMetadata,
   loadScript,
   toCamelCase,
-  loadCSS,, create controllwe
+  loadCSS,
 } from '/scripts/aem.js';
 
 import { } from '/plusplus/src/siteConfig.js';
