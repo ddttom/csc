@@ -1,4 +1,4 @@
-function extractPaths(obj, currentPath = "") {
+function extractPaths(obj, urlString, currentPath = "") {
   let folderAssets = [];
   for (const key in obj) {
     if (typeof obj[key] === "object" && obj[key] !== null) {
@@ -7,7 +7,7 @@ function extractPaths(obj, currentPath = "") {
         obj[key]["jcr:primaryType"] === "dam:AssetContent"
       ) {
         // We've found an asset, add its path to the folderAssets array
-        folderAssets.push(currentPath);
+        folderAssets.push(urlString+currentPath);
       } else if (obj[key]["jcr:primaryType"] === "sling:Folder") {
         // We've found a folder, recursively process it
         const newPath = `${currentPath}/${key}`;
@@ -18,7 +18,7 @@ function extractPaths(obj, currentPath = "") {
         }
       } else {
         // Continue traversing
-        const subAssets = extractPaths(obj[key], `${currentPath}/${key}`);
+        const subAssets = extractPaths(obj[key], urlString,`${currentPath}/${key}`);
         folderAssets = folderAssets.concat(subAssets);
       }
     }
@@ -49,8 +49,9 @@ async function control() {
       throw new Error("Network response was not ok " + response.statusText);
     }
 
+    const finalString = "http://localhost:4502/content/dam/comwrap-uk-demo-assets/";
     const data = await response.json();
-    extractPaths(data);
+    extractPaths(data,finalString);
     console.log(window.dam);
   } catch (error) {
     console.error("Error fetching data", error);

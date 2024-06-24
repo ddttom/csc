@@ -44,7 +44,7 @@ export default function decorate(block) {
           const imgElement = pictureElement.querySelector('img');
           if (imgElement) {
             // Update the image source
-            imgElement.src = window.Dam[0][index];
+            imgElement.src = window.dam[0][index];
           }
           // Remove all child nodes of the picture element
           while (pictureElement.firstChild) {
@@ -52,12 +52,12 @@ export default function decorate(block) {
           }
           // Create a new img element with the updated source
           const newImgElement = document.createElement('img');
-          newImgElement.src = window.Dam[0][index];
+          newImgElement.src = window.dam[0][index];
           pictureElement.appendChild(newImgElement);
         }
       }
     });
   }
-  if (window.Dam) {
+  if (window.dam) {
   updateDynamicImages();
   }
