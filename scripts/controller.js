@@ -1,15 +1,14 @@
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable no-prototype-builtins */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-console */
-function extractPaths(obj, currentPath = '') {
+function extractPaths(obj, currentPath = "") {
   let folderAssets = [];
   for (const key in obj) {
-    if (typeof obj[key] === 'object' && obj[key] !== null) {
-      if (key === 'jcr:content' && obj[key]['jcr:primaryType'] === 'dam:AssetContent') {
+    if (typeof obj[key] === "object" && obj[key] !== null) {
+      if (
+        key === "jcr:content" &&
+        obj[key]["jcr:primaryType"] === "dam:AssetContent"
+      ) {
         // We've found an asset, add its path to the folderAssets array
         folderAssets.push(currentPath);
-      } else if (obj[key]['jcr:primaryType'] === 'sling:Folder') {
+      } else if (obj[key]["jcr:primaryType"] === "sling:Folder") {
         // We've found a folder, recursively process it
         const newPath = `${currentPath}/${key}`;
         const subFolderAssets = extractPaths(obj[key], newPath);
@@ -26,30 +25,33 @@ function extractPaths(obj, currentPath = '') {
   }
   return folderAssets;
 }
-export async function control() {
+
+async function control() {
   window.dam = [];
-  const urlString = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets.-1.json';
+  const urlString =
+    "http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets.-1.json";
+  const username = "admin";
+  const password = "admin";
+  const auth = "Basic " + btoa(username + ":" + password);
 
-  const username = 'admin';
-  const password = 'admin';
-
-  // Encode the username and password
-  const credentials = btoa(`${username}:${password}`);
   try {
     const response = await fetch(urlString, {
+      method: "GET",
       headers: {
-        'Authorization': `Basic ${credentials}`
-      }
+        Authorization: auth,
+      },
     });
+
     if (!response.ok) {
-      throw new Error(`HTTP error ${response.status}`);
+      throw new Error("Network response was not ok " + response.statusText);
     }
+
     const data = await response.json();
-    window.dam = [];
     extractPaths(data);
+    console.log(window.dam);
   } catch (error) {
-    console.error('Error fetching or processing the data:', error);
+    console.error("Error fetching data", error);
   }
 }
 
-window.cmsplus.callbackPageLoadChain.push(control);
+control();
