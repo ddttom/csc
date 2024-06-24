@@ -29,7 +29,6 @@ function extractPaths(obj, currentPath = '') {
 export async function control() {
   window.dam = [];
   const urlString = 'http://localhost:8080/http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets.4.json';
-
   try {
     const response = await fetch(urlString);
     if (!response.ok) {
