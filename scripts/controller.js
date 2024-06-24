@@ -29,6 +29,7 @@ function extractPaths(obj, currentPath = '') {
 
 // eslint-disable-next-line no-unused-vars
 export async function control() {
+  window.dam = [];
   try {
     const response = await fetch('http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets.-1.json');
     if (!response.ok) {
@@ -39,7 +40,6 @@ export async function control() {
     extractPaths(data);
   } catch (error) {
     console.error('Error fetching or processing the data:', error);
-    window.dam = [];
   }
 }
 window.cmsplus.callbackPageLoadChain.push(control);
