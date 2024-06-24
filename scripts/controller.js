@@ -28,7 +28,7 @@ function extractPaths(obj, currentPath = '') {
 }
 
 // eslint-disable-next-line no-unused-vars
-export async function decorate(block) {
+export async function control() {
   try {
     const response = await fetch('http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets.-1.json');
     if (!response.ok) {
@@ -42,3 +42,4 @@ export async function decorate(block) {
     window.dam = [];
   }
 }
+window.cmsplus.callbackPageLoadChain.push(control);
