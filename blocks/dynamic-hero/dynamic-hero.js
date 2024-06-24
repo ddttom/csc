@@ -1,24 +1,16 @@
-  
-function updateDynamicImages() {
-  // Define the class names for the dynamic elements
-  const dynamicClasses = ['dynamic-two'];
-
-  // Iterate through the dynamic elements and update their images
-  dynamicClasses.forEach((dynamicClass, index) => {
-    const dynamicElement = document.querySelector(`.${dynamicClass}`);
-    if (dynamicElement) {
-      // Remove all child nodes of the dynamic element
-      while (dynamicElement.firstChild) {
-        dynamicElement.removeChild(dynamicElement.firstChild);
-      }
-      // Create a new img element with the updated source
-      const newImgElement = document.createElement('img');
-      newImgElement.src = window.dam[0][1];
-      dynamicElement.appendChild(newImgElement);
+function updateDynamicImage() {
+  const dynamicElement = document.querySelector('.dynamic-two');
+  if (dynamicElement && window.dam && window.dam[0] && window.dam[0][1]) {
+    // Remove all child nodes of the dynamic element
+    while (dynamicElement.firstChild) {
+      dynamicElement.removeChild(dynamicElement.firstChild);
     }
-  });
+    // Create a new img element with the updated source
+    const newImgElement = document.createElement('img');
+    newImgElement.src = window.dam[0][1];
+    dynamicElement.appendChild(newImgElement);
+  }
 }
-
 
 export default function decorate(block) {
   // Get all DIV children of the block
@@ -30,8 +22,8 @@ export default function decorate(block) {
     divEl[1].classList.add('dynamic-two');
     divEl[2].classList.add('dynamic-three');
 
-    const pElement = [...divEl[1].querySelectorAll('p')];
-    pElement.forEach((p, index) => {
+    const pElements = [...divEl[1].querySelectorAll('p')];
+    pElements.forEach((p, index) => {
       p.classList.add(`p-${index}`);
       if (index === 1) {
         const h1 = document.createElement('h1');
@@ -45,14 +37,12 @@ export default function decorate(block) {
     });
 
     const pZero = document.querySelector('.p-0');
+    if (pZero) {
+      const parent = pZero.parentNode;
+      parent.classList.add('content');
+      parent.insertAdjacentElement('afterend', pZero);
+    }
+  }
 
-    const parent = pZero.parentNode;
-    parent.classList.add('content');
-    parent.insertAdjacentElement('afterend', pZero);
-  }
-  if (window.dam) {
-    updateDynamicImages();
-  }
+  updateDynamicImage();
 }
-
-  
