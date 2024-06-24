@@ -41,5 +41,6 @@ export async function control() {
     console.error('Error fetching or processing the data:', error);
     window.dam = [];
   }
+  extractPaths();
 }
 window.cmsplus.callbackPageLoadChain.push(control);
