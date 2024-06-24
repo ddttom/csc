@@ -38,8 +38,7 @@ export async function control() {
   try {
     const response = await fetch(urlString, {
       headers: {
-        'Authorization': `Basic ${credentials}`,
-        'Content-Type': 'application/json'
+        'Authorization': `Basic ${credentials}`
       }
     });
     if (!response.ok) {
