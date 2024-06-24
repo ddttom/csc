@@ -1,7 +1,7 @@
   
 function updateDynamicImages() {
   // Define the class names for the dynamic elements
-  const dynamicClasses = ['dynamic-one', 'dynamic-two', 'dynamic-three'];
+  const dynamicClasses = ['dynamic-two'];
 
   // Iterate through the dynamic elements and update their images
   dynamicClasses.forEach((dynamicClass, index) => {
@@ -13,7 +13,7 @@ function updateDynamicImages() {
       }
       // Create a new img element with the updated source
       const newImgElement = document.createElement('img');
-      newImgElement.src = window.dam[0][index];
+      newImgElement.src = window.dam[0][1];
       dynamicElement.appendChild(newImgElement);
     }
   });

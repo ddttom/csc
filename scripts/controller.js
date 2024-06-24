@@ -49,7 +49,7 @@ async function control() {
       throw new Error("Network response was not ok " + response.statusText);
     }
 
-    const finalString = "http://localhost:4502/content/dam/comwrap-uk-demo-assets/";
+    const finalString = "http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets";
     const data = await response.json();
     extractPaths(data,finalString);
     console.log(window.dam);
