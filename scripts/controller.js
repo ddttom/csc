@@ -23,7 +23,6 @@ function extractPaths(obj, currentPath = "") {
       }
     }
   }
-  window.cmsplus.debug('ExtractPaths');
   return folderAssets;
 }
 

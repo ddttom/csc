@@ -31,4 +31,5 @@ export default function decorate(block) {
       parent.insertAdjacentElement("afterend", pZero);
     }
   }
+  updateDynamicImage();
 }
