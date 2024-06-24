@@ -1,13 +1,12 @@
 function updateDynamicImage() {
   const dynamicElement = document.querySelector('.dynamic-two');
   if (dynamicElement && window.dam && window.dam[0] && window.dam[0][1]) {
-    // Remove all child nodes of the dynamic element
-    while (dynamicElement.firstChild) {
-      dynamicElement.removeChild(dynamicElement.firstChild);
-    }
     // Create a new img element with the updated source
     const newImgElement = document.createElement('img');
-    newImgElement.src = window.dam[0][1];
+    newImgElement.src = window.dam[0][1]; // Changed index to [1]
+
+    // Replace the existing child (if any) with the new img element
+    dynamicElement.innerHTML = ''; // Clear existing content
     dynamicElement.appendChild(newImgElement);
   }
 }
