@@ -36,8 +36,8 @@
   --body-font-size-xs: 16px;
 
   /* heading sizes */
-  --heading-font-size-xxl: 48px;
-  --heading-font-size-xl: 40px;
+  --heading-font-size-xxl: 32px;
+  --heading-font-size-xl: 26px;
   --heading-font-size-l: 32px;
   --heading-font-size-m: 24px;
   --heading-font-size-s: 20px;
@@ -66,7 +66,7 @@
 }
 
 body {
-  font-size: var(--body-font-size-m);
+  font-size: var(--body-font-size-s);
   margin: 0;
   font-family: var(--body-font-family);
   line-height: 1.6;
@@ -76,6 +76,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@media (width >= 900px) {
+  body {
+    font-size: var(--body-font-size-m);
+  }
+}
+
 
 body.appear {
   display: block;
@@ -112,12 +119,29 @@ h2 {
 h3 { 
   font-size: var(--heading-font-size-l); 
   line-height: 1.2px;
+=======
+  font-size: var(--heading-font-size-xxl);
+  line-height: 62px;
+  color: var(--black-color);
+}
+
+h2 {
+  font-size: var(--heading-font-size-xl);
+  line-height: 52px;
+  color: var(--black-color);
+}
+
+h3 {
+  font-size: var(--heading-font-size-l);
+  line-height: 1.2px;
+  color: var(--black-color);
 }
 
 h4 { 
   font-family:var(--body-font-family);
-  font-size: var(--heading-font-size-m);
+  font-size: var(--heading-font-size-l);
   line-height: 1.2;
+  color: var(--black-color);
 }
 
 h5 { 
@@ -128,6 +152,16 @@ h5 {
 h6 { 
   font-size: var(--heading-font-size-xs); 
   line-height: 32px; 
+=======
+  font-size: var(--heading-font-size-l);
+  line-height: 1.2;
+  color: var(--black-color);
+}
+
+h6 {
+  font-size: var(--heading-font-size-xs);
+  line-height: 32px;
+  color: var(--black-color);
 }
 
 p,
@@ -265,4 +299,38 @@ main .section.highlight {
 header,
 footer {
   display: none;
+}
+
+.green h1 {
+  color: green !important;
+}
+
+.green h2 {
+  color: white !important;
+}
+
+.green h3,
+.green h4 {
+  color: green !important;
+}
+
+.white {
+  background-color: grey;
+}
+
+.white h1,
+.white h2,
+.white h3,
+.white h4 {
+  color: white !important;
+}
+
+
+.red h1,
+.red h2 {
+  color: white !important;
+}
+.red h3,
+.red h4 {
+  color: red !important;
 }
