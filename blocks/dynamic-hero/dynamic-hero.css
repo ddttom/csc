@@ -1,0 +1,115 @@
+.section.dynamic-hero-container,
+.section .dynamic-hero-wrapper {
+}
+
+.dynamic-hero > div {
+  max-width: unset;
+  margin: 0;
+}
+
+.dynamic-hero {
+  padding: 0;
+  display: grid;
+}
+
+.dynamic-hero {
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+.dynamic-hero > div{
+  display: grid;
+}
+
+.dynamic-hero .dynamic-one{
+  grid-area: dynamic-one;
+  z-index: 1;
+  justify-content: end;
+  margin-top: 2rem;
+  margin-right: 3rem;
+
+  & picture {
+    display: block;
+    line-height: 0;
+    height: 0;
+  }
+
+  & img {
+    max-width: 50px;
+  }
+}
+
+.dynamic-hero .dynamic-two{
+  grid-area: dynamic-two;
+  display: grid;
+  width: 100%;
+
+  & * {
+    margin: 0;
+  }
+
+  & picture,
+  & img {
+    display: block;
+    line-height: 0;
+  }
+
+  & p {
+    grid-area: 1 / 1;
+  }
+
+  & .content {
+    grid-area: 1 / 1;
+    position: relative;
+    margin: 0 0 1rem 1rem;
+    align-self: self-end;
+    z-index: 1;
+    max-width: 250px;
+
+    h1, h2 {
+      line-height: 1.1;
+    }
+
+    & p {
+      color: var(--white-color);
+    }
+  }
+}
+
+.dynamic-hero .dynamic-three{
+  grid-area: dynamic-three;
+  /* max-width: 160px; */
+  align-self: self-end;
+  justify-self: end;
+  margin-bottom: -5rem;
+  margin-right: 1rem;
+  display: none;
+
+  & > div {
+    background: var(--white-color);
+    border-radius: 50%;
+  }
+}
+
+@media (width >= 900px) {
+  .dynamic-hero .dynamic-one img {
+    max-width: 136px;
+  }
+
+  .dynamic-hero .dynamic-two .content {
+    margin: 0 0 3rem 4rem;
+    max-width: 500px;
+  }
+
+  .dynamic-hero .dynamic-three {
+    width: 100%; /* Ensure it scales based on the container's width */
+    max-width: clamp(200px, 35%, 500px); /* Adjusts between 150px and 300px, relative to 50% of the container width */
+    height: auto; /* Maintain the aspect ratio */
+    margin-bottom: -15rem;
+    margin-right: 5rem;
+    display:block;
+  }
+}
+
+
+

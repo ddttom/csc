@@ -1,0 +1,72 @@
+/* Dynamic columns title */
+.dynamic-columns-container > div:first-child   {
+  padding-top: 2rem;
+
+  & h3 {
+    color: var(--green-color);
+    font-size: var(--heading-font-size-xxl);
+    line-height: 1.1;
+  }
+
+  & h4 {
+    font-size: var(--heading-font-size-l);
+  }
+}
+
+.dynamic-columns  > div {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0;
+}
+
+.dynamic-columns img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 2 / 1;
+  object-position: center;
+  height: 100%;
+  width: 100%;
+}
+
+.dynamic-columns-container >div {
+  margin: 1rem;
+}
+
+.dynamic-columns p {
+  margin: 0;
+}
+
+.dynamic-columns > div > div {
+  order: 1;
+}
+
+.dynamic-columns > div > .columns-img-col {
+  order: 0;
+  flex: 1;
+}
+
+@media (width >= 900px) { 
+  .dynamic-columns-container > div {
+    margin-inline: auto;
+    box-sizing: border-box;
+    padding: 0 4rem;
+  }
+
+  .dynamic-columns-container > div:first-child   {
+    padding-top: 2rem;
+  }
+
+  .dynamic-columns  > div {
+    margin: 6rem 0;
+    align-items: stretch;
+    flex-direction: unset;
+    gap: 66px;
+  }
+
+  .dynamic-columns  > div > div {
+    flex: 1;
+    order: unset;
+  }
+  
+}
+
