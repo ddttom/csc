@@ -10,10 +10,6 @@
 .dynamic-hero {
   padding: 0;
   display: grid;
-  /* grid-template-areas:
-    'dynamic-one dynamic-one dynamic-one'
-    'dynamic-two dynamic-two dynamic-two'
-    'dynamic-three dynamic-three dynamic-three'; */
 }
 
 .dynamic-hero {
@@ -95,6 +91,7 @@
   justify-self: end;
   margin-bottom: -5rem;
   margin-right: 1rem;
+  display: none;
 
   & > div {
     background: var(--white-color);
@@ -117,6 +114,7 @@
     max-width: 400px;
     margin-bottom: -10rem;
     margin-right: 5rem;
+    display:block;
   }
 }
 
