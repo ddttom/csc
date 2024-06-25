@@ -76,13 +76,14 @@ async function control() {
     console.error('Error fetching data', error);
   }
 }
-
 export function updateDynamicImage() {
   const dynamicElement = document.querySelector('.dynamic-two');
+  const newDivElement = document.createElement('div');
   const newImgElement = document.createElement('img');
   newImgElement.src = window.dam[0][1][0];
-  dynamicElement.innerHTML = ''; // Clear existing content
-  dynamicElement.appendChild(newImgElement);
+  newDivElement.appendChild(newImgElement);
+  dynamicElement.innerHTML = '';
+  dynamicElement.appendChild(newDivElement);
 }
 
 control();
