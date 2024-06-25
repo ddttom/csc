@@ -276,6 +276,10 @@ footer {
 }
 
 
+.white h2,
+.white h3 {
+  color: white !important;
+}
 
 .red h2,
 .red h3 {
