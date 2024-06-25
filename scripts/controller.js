@@ -18,7 +18,7 @@ function extractPaths(obj, currentPath = "") {
         }
       } else {
         // Continue traversing
-        const subAssets = extractPaths(obj[key],`${currentPath}/${key}`);
+        const subAssets = extractPaths(obj[key], `${currentPath}/${key}`);
         folderAssets = folderAssets.concat(subAssets);
       }
     }
@@ -49,14 +49,17 @@ async function control() {
       throw new Error("Network response was not ok " + response.statusText);
     }
 
-    const finalString = "http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets";
+    const finalString =
+      "http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets";
     const data = await response.json();
     extractPaths(data);
 
     // Iterate over window.dam and prepend finalString to leaf array contents
-    window.dam = window.dam.map(item => {
-      if (Array.isArray(item[1])) {
-        return [item[0], item[1].map(path => finalString + path)];
+    window.dam = window.dam.map((item) => {
+      // Check if the item has at least two elements and the second one is an array
+      if (item.length > 1 && Array.isArray(item[1])) {
+        // Return a new array with the first element unchanged and the second element modified
+        return [item[0], item[1].map((path) => finalString + path)];
       }
       return item;
     });
@@ -68,11 +71,11 @@ async function control() {
 }
 
 export function updateDynamicImage() {
-  const dynamicElement = document.querySelector('.dynamic-two');
-    const newImgElement = document.createElement('img');
-    newImgElement.src = window.dam[0][0];
-    dynamicElement.innerHTML = ''; // Clear existing content
-    dynamicElement.appendChild(newImgElement); 
+  const dynamicElement = document.querySelector(".dynamic-two");
+  const newImgElement = document.createElement("img");
+  newImgElement.src = window.dam[0][0];
+  dynamicElement.innerHTML = ""; // Clear existing content
+  dynamicElement.appendChild(newImgElement);
 }
 
 control();
