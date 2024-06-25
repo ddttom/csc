@@ -275,16 +275,17 @@ footer {
   display: none;
 }
 
-
-.white h3 {
-  color: red !important;
-}
-
-.white h2 {
+.green h3,
+.green h4 {
   color: white !important;
 }
 
-.red h2,
-.red h3 {
+.white h3,
+.white h4 {
+  color: white !important;
+}
+
+.red h3,
+.red h4 {
   color: red !important;
 }
