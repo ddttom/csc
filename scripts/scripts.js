@@ -21,6 +21,7 @@ import {
 } from '/scripts/aem.js';
 
 import { } from '/plusplus/src/siteConfig.js';
+import { } from '/scripts/controller.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the lis
 const AUDIENCES = {

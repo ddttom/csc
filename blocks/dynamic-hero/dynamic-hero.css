@@ -2,17 +2,9 @@
 .section .dynamic-hero-wrapper {
 }
 
-.dynamic-hero > div {
-  max-width: unset;
-  margin: 0;
-}
-
 .dynamic-hero {
   padding: 0;
   display: grid;
-}
-
-.dynamic-hero {
   max-width: 1200px;
   margin-inline: auto;
 }
@@ -76,7 +68,7 @@
   }
 }
 
-.dynamic-hero .dynamic-three{
+main .dynamic-hero .dynamic-three{
   grid-area: dynamic-three;
   /* max-width: 160px; */
   align-self: self-end;
@@ -84,7 +76,6 @@
   margin-bottom: -5rem;
   margin-right: 1rem;
   display: none;
-
   & > div {
     background: var(--white-color);
     border-radius: 50%;

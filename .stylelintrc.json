@@ -1,3 +1,16 @@
 {
-  "extends": ["stylelint-config-standard"]
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "declaration-block-no-duplicate-properties": true,
+    "selector-pseudo-element-colon-notation": "double",
+    "color-function-notation": "modern",
+    "alpha-value-notation": "percentage",
+    "block-no-empty": null,
+    "comment-empty-line-before": "always",
+    "no-duplicate-selectors": true,
+    "declaration-block-no-redundant-longhand-properties": true,
+    "color-hex-length": "short",
+    "declaration-block-single-line-max-declarations": 1
+  
+  }
 }
