@@ -19,5 +19,5 @@ export default function decorate(block) {
       }
     });
   });
-updateDynamicImage('.dynamic-img', 2);
+  updateDynamicImage('.dynamic-img', 2);
 }
