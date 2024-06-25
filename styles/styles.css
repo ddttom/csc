@@ -107,30 +107,30 @@ h6 {
 h1 { 
   font-size: var(--heading-font-size-xxl);
   line-height: 62px;
-  color: var(--white-color);
+  color: var(--black-color);
 }
 
 h2 {
   font-size: var(--heading-font-size-xl);
   line-height: 52px;
-  color: var(--green-color);
+  color: var(--black-color);
 }
 
 h3 {
   font-size: var(--heading-font-size-l);
   line-height: 1.2px;
-  color: var(--green-color);
+  color: var(--black-color);
 }
 
 h4 { 
   font-family:var(--body-font-family);
-  font-size: var(--heading-font-size-m);
+  font-size: var(--heading-font-size-l);
   line-height: 1.2;
   color: var(--black-color);
 }
 
 h5 { 
-  font-size: var(--heading-font-size-s);
+  font-size: var(--heading-font-size-l);
   line-height: 1.2;
   color: var(--black-color);
 }
@@ -275,16 +275,35 @@ footer {
   display: none;
 }
 
+.green h1 {
+  color: green !important;
+}
+
+.green h2 {
+  color: white !important;
+}
+
 .green h3,
 .green h4 {
   color: green !important;
 }
 
+.white {
+  background-color: grey;
+}
+
+.white h1,
+.white h2,
 .white h3,
 .white h4 {
   color: white !important;
 }
 
+
+.red h1,
+.red h2 {
+  color: white !important;
+}
 .red h3,
 .red h4 {
   color: red !important;
