@@ -68,14 +68,14 @@
   }
 }
 
-main .dynamic-hero .dynamic-three{
+.dynamic-hero .dynamic-three{
   grid-area: dynamic-three;
-  /* max-width: 160px; */
   align-self: self-end;
   justify-self: end;
   margin-bottom: -5rem;
   margin-right: 1rem;
   display: none;
+  
   & > div {
     background: var(--white-color);
     border-radius: 50%;
