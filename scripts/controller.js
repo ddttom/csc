@@ -103,14 +103,18 @@ async function fetchImageAsBase64(url) {
   const blob = await response.blob();
   return blobToBase64(blob);
 }
-
+function getRandomDamNumber() {
+  const sequence = window.dam.length;
+  return Math.floor(Math.random() * sequence) + 1;
+}
 export async function updateDynamicImage(className, imageNumber) {
+  const sequence = getRandomDamNumber();
   const dynamicElement = document.querySelector(className);
   const newDivElement = document.createElement('div');
   const newImgElement = document.createElement('img');
 
   try {
-    const imageUrl = window.dam[0][1][imageNumber];
+    const imageUrl = window.dam[0][sequence][imageNumber];
     const base64Image = await fetchImageAsBase64(imageUrl);
     newImgElement.src = `data:image/jpeg;base64,${base64Image}`;
     newDivElement.appendChild(newImgElement);
