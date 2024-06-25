@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable import/prefer-default-export */
 function extractPaths(obj, currentPath = '') {
@@ -72,18 +73,52 @@ async function control() {
 
     window.cmsplus.debug(JSON.stringify(window.dam));
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('Error fetching data', error);
   }
 }
-export function updateDynamicImage() {
+
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+async function fetchImageAsBase64(url) {
+  const username = 'admin';
+  const password = 'admin';
+  const basicAuth = btoa(`${username}:${password}`);
+
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Basic ${basicAuth}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const blob = await response.blob();
+  return blobToBase64(blob);
+}
+
+export async function updateDynamicImage() {
   const dynamicElement = document.querySelector('.dynamic-two');
   const newDivElement = document.createElement('div');
   const newImgElement = document.createElement('img');
-  newImgElement.src = window.dam[0][1][0];
-  newDivElement.appendChild(newImgElement);
-  dynamicElement.innerHTML = '';
-  dynamicElement.appendChild(newDivElement);
+
+  try {
+    const imageUrl = window.dam[0][1][0];
+    const base64Image = await fetchImageAsBase64(imageUrl);
+    newImgElement.src = `data:image/jpeg;base64,${base64Image}`;
+    newDivElement.appendChild(newImgElement);
+    dynamicElement.innerHTML = '';
+    dynamicElement.appendChild(newDivElement);
+  } catch (error) {
+    console.error('Error fetching or processing image:', error);
+  }
 }
 
 control();
