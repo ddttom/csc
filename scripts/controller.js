@@ -104,13 +104,13 @@ async function fetchImageAsBase64(url) {
   return blobToBase64(blob);
 }
 
-export async function updateDynamicImage() {
-  const dynamicElement = document.querySelector('.dynamic-two');
+export async function updateDynamicImage(className, imageNumber) {
+  const dynamicElement = document.querySelector(className);
   const newDivElement = document.createElement('div');
   const newImgElement = document.createElement('img');
 
   try {
-    const imageUrl = window.dam[0][1][0];
+    const imageUrl = window.dam[0][1][imageNumber];
     const base64Image = await fetchImageAsBase64(imageUrl);
     newImgElement.src = `data:image/jpeg;base64,${base64Image}`;
     newDivElement.appendChild(newImgElement);
