@@ -78,7 +78,7 @@
 
 .dynamic-hero .dynamic-three{
   grid-area: dynamic-three;
-  max-width: 160px;
+  /* max-width: 160px; */
   align-self: self-end;
   justify-self: end;
   margin-bottom: -5rem;
@@ -94,7 +94,6 @@
 @media (width >= 900px) {
   .dynamic-hero .dynamic-one img {
     max-width: 136px;
-    max-height: 136px;
   }
 
   .dynamic-hero .dynamic-two .content {
@@ -103,8 +102,10 @@
   }
 
   .dynamic-hero .dynamic-three {
-    max-width: 400px;
-    margin-bottom: -16rem;
+    width: 100%; /* Ensure it scales based on the container's width */
+    max-width: clamp(200px, 35%, 500px); /* Adjusts between 150px and 300px, relative to 50% of the container width */
+    height: auto; /* Maintain the aspect ratio */
+    margin-bottom: -15rem;
     margin-right: 5rem;
     display:block;
   }
