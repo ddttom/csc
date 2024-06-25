@@ -63,8 +63,7 @@ async function control() {
       }
       return item;
     });
-
-    window.cmsplus.debug(window.dam);
+    window.cmsplus.debug(JSON.stringify(window.dam));
   } catch (error) {
     console.error("Error fetching data", error);
   }
