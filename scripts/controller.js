@@ -39,7 +39,7 @@ window.dam = { folders: [], files: [] };
 
 function control() {
   window.dam = {};
-
+  window.cmsplus.debug('dam created');
   const urlString = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets.-1.json';
   const username = 'admin';
   const password = 'admin';
@@ -61,6 +61,7 @@ function control() {
       return response.json();
     })
     .then((data) => {
+      window.cmsplus.debug('json captured');
       extractPaths(data);
 
       const urlParams = new URLSearchParams(window.location.search);
@@ -80,6 +81,7 @@ function control() {
       window.cmsplus.debug(JSON.stringify(window.dam));
 
       // Dispatch an event to signal that the data is ready
+      window.cmsplus.debug('damDatReady Event Fired');
       window.dispatchEvent(new Event('damDataReady'));
     })
     .catch((error) => {
@@ -96,6 +98,7 @@ function blobToBase64(blob) {
   });
 }
 async function fetchImageAsBase64(url) {
+  window.cmsplus.debug('fetchImage');
   const username = 'admin';
   const password = 'admin';
   const basicAuth = btoa(`${username}:${password}`);
@@ -111,14 +114,17 @@ async function fetchImageAsBase64(url) {
   }
 
   const blob = await response.blob();
+  window.cmsplus.debug('image fetched');
   return blobToBase64(blob);
 }
 export async function updateDynamicImage(className, imageNumber) {
   let sequence = 0;
+  window.cmsplus.debug(`sequence=${sequence}`);
   if (window.dam.sequence) {
     sequence = window.dam.sequence;
   } else {
     sequence = Math.floor(Math.random() * window.dam.folders.length);
+    window.cmsplus.debug(`Sequence randomized=${sequence}`);
   }
   const dynamicElement = document.querySelector(`${className} > picture`);
   const newImgElement = document.createElement('img');
@@ -129,6 +135,7 @@ export async function updateDynamicImage(className, imageNumber) {
     newImgElement.src = `data:image/jpeg;base64,${base64Image}`;
     dynamicElement.innerHTML = '';
     dynamicElement.appendChild(newImgElement);
+    window.cmsplus.debug('image swapped');
   } catch (error) {
     console.error('Error fetching or processing image:', error);
   }
