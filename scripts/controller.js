@@ -36,10 +36,8 @@ function extractPaths(obj, currentPath = '') {
 }
 
 window.dam = { folders: [], files: [] };
-
+window.cmsplus.debug('dam created');
 function control() {
-  window.dam = {};
-  window.cmsplus.debug('dam created');
   const urlString = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets.-1.json';
   const username = 'admin';
   const password = 'admin';
