@@ -1,33 +1,41 @@
+/* eslint-disable max-len */
 /* eslint-disable no-console */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable import/prefer-default-export */
 function extractPaths(obj, currentPath = '') {
-  let folderAssets = [];
+  let files = [];
+  let folders = [];
+
   Object.keys(obj).forEach((key) => {
     const value = obj[key];
     if (value !== null && typeof value === 'object') {
-      if (
-        key === 'jcr:content' && value['jcr:primaryType'] === 'dam:AssetContent'
-      ) {
-        // We've found an asset, add its path to the folderAssets array
-        folderAssets.push(currentPath);
+      if (key === 'jcr:content' && value['jcr:primaryType'] === 'dam:AssetContent') {
+        // We've found an asset, add its path to the files array
+        files.push(currentPath);
       } else if (value['jcr:primaryType'] === 'sling:Folder') {
-        // We've found a folder, recursively process it
+        // We've found a folder, add it to folders array and recursively process it
+        folders.push(key);
         const newPath = `${currentPath}/${key}`;
-        const subFolderAssets = extractPaths(value, newPath);
-        // If the subfolder has assets, add it to window.dam
-        if (subFolderAssets.length > 0) {
-          window.dam.push([key, subFolderAssets]);
+        const { files: subFiles, folders: subFolders } = extractPaths(value, newPath);
+        // Add subFiles to window.dam.files
+        if (subFiles.length > 0) {
+          window.dam.files.push(subFiles);
         }
+        // Add subFolders to window.dam.folders
+        folders = folders.concat(subFolders);
       } else {
         // Continue traversing
-        const subAssets = extractPaths(value, `${currentPath}/${key}`);
-        folderAssets = folderAssets.concat(subAssets);
+        const { files: subFiles, folders: subFolders } = extractPaths(value, `${currentPath}/${key}`);
+        files = files.concat(subFiles);
+        folders = folders.concat(subFolders);
       }
     }
   });
-  return folderAssets;
+
+  return { files, folders };
 }
+
+window.dam = { folders: [], files: [] };
 
 async function control() {
   window.dam = [];
@@ -55,22 +63,11 @@ async function control() {
 
     const finalString = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets';
 
-    // Iterate over window.dam and prepend finalString to each image path in the inner arrays
-    window.dam = window.dam.map((folder) => {
-      // Check if the current element is an array
-      if (Array.isArray(folder)) {
-        // Map over each inner array (starting from the second element) within the current folder
-        return folder.map((subArray, index) => {
-          // Only modify elements that are arrays (ignoring the first element if it's not)
-          if (index !== 0 && Array.isArray(subArray)) {
-            return subArray.map((imagePath) => finalString + imagePath);
-          }
-          return subArray;
-        });
-      }
-      return folder;
-    });
+    // Refactored subroutine
+    window.dam.files = window.dam.files.map((folderFiles) => folderFiles.map((imagePath) => finalString + imagePath));
 
+    // If you need to modify the folders array as well, you can do:
+    window.dam.folders = window.dam.folders.map((folderName) => `${finalString}/${folderName}`);
     window.cmsplus.debug(JSON.stringify(window.dam));
   } catch (error) {
     console.error('Error fetching data', error);
@@ -104,7 +101,7 @@ async function fetchImageAsBase64(url) {
   return blobToBase64(blob);
 }
 function getRandomDamNumber() {
-  const sequence = window.dam.length;
+  const sequence = window.dam.folders.length;
   return Math.floor(Math.random() * sequence);
 }
 export async function updateDynamicImage(className, imageNumber) {
@@ -115,7 +112,7 @@ export async function updateDynamicImage(className, imageNumber) {
     const numericValue = parseFloat(aiParam);
     if (!Number.isNaN(numericValue)) {
       const targetString = `version_${numericValue.toString().padStart(2, '0')}`;
-      sequence = window.dam.findIndex((entity) => entity[0] === targetString);
+      sequence = window.dam.folders.indexOf(targetString);
     }
   }
   const dynamicElement = document.querySelector(className);
@@ -123,7 +120,7 @@ export async function updateDynamicImage(className, imageNumber) {
   const newImgElement = document.createElement('img');
 
   try {
-    const imageUrl = window.dam[0][sequence][imageNumber + 1];
+    const imageUrl = window.dam.files[sequence][imageNumber];
     const base64Image = await fetchImageAsBase64(imageUrl);
     newImgElement.src = `data:image/jpeg;base64,${base64Image}`;
     newDivElement.appendChild(newImgElement);
