@@ -38,7 +38,16 @@ function extractPaths(obj, currentPath = '') {
 window.dam = { folders: [], files: [] };
 
 async function control() {
-  window.dam = [];
+  window.dam = {};
+  const urlParams = new URLSearchParams(window.location.search);
+  const aiParam = urlParams.get('ai');
+  if (aiParam !== null) {
+    const numericValue = parseFloat(aiParam);
+    if (!Number.isNaN(numericValue)) {
+      const targetString = `version_${numericValue.toString().padStart(2, '0')}`;
+      window.dam.sequence = window.dam.folders.indexOf(targetString);
+    }
+  }
   const urlString = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets.-1.json';
   const username = 'admin';
   const password = 'admin';
@@ -100,32 +109,22 @@ async function fetchImageAsBase64(url) {
   const blob = await response.blob();
   return blobToBase64(blob);
 }
-function getRandomDamNumber() {
-  const sequence = window.dam.folders.length;
-  return Math.floor(Math.random() * sequence);
-}
 export async function updateDynamicImage(className, imageNumber) {
-  const urlParams = new URLSearchParams(window.location.search);
-  let sequence = getRandomDamNumber();
-  const aiParam = urlParams.get('ai');
-  if (aiParam !== null) {
-    const numericValue = parseFloat(aiParam);
-    if (!Number.isNaN(numericValue)) {
-      const targetString = `version_${numericValue.toString().padStart(2, '0')}`;
-      sequence = window.dam.folders.indexOf(targetString);
-    }
+  let sequence = 0;
+  if (window.dam.sequence) {
+    sequence = window.dam.sequence;
+  } else {
+    sequence = Math.floor(Math.random() * window.dam.folders.length);
   }
-  const dynamicElement = document.querySelector(className);
-  const newDivElement = document.createElement('div');
+  const dynamicElement = document.querySelector(`${className} > picture`);
   const newImgElement = document.createElement('img');
 
   try {
     const imageUrl = window.dam.files[sequence][imageNumber];
     const base64Image = await fetchImageAsBase64(imageUrl);
     newImgElement.src = `data:image/jpeg;base64,${base64Image}`;
-    newDivElement.appendChild(newImgElement);
     dynamicElement.innerHTML = '';
-    dynamicElement.appendChild(newDivElement);
+    dynamicElement.appendChild(newImgElement);
   } catch (error) {
     console.error('Error fetching or processing image:', error);
   }
