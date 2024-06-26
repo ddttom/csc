@@ -20,5 +20,5 @@ export default function decorate(block) {
     });
   });
   window.cmsplus.debug('Updating dynamic-columns-image');
-  updateDynamicImage('.columns-image-col', 1);
+  updateDynamicImage('.columns-img-col', 1);
 }
