@@ -114,7 +114,8 @@ export async function updateDynamicImage(className, imageNumber) {
   if (aiParam !== null) {
     const numericValue = parseFloat(aiParam);
     if (!Number.isNaN(numericValue)) {
-      sequence = numericValue;
+      const targetString = `version_${numericValue.toString().padStart(2, '0')}`;
+      sequence = window.dam.findIndex((entity) => entity[0] === targetString);
     }
   }
   const dynamicElement = document.querySelector(className);
@@ -122,7 +123,7 @@ export async function updateDynamicImage(className, imageNumber) {
   const newImgElement = document.createElement('img');
 
   try {
-    const imageUrl = window.dam[0][sequence][imageNumber];
+    const imageUrl = window.dam[0][sequence][imageNumber + 1];
     const base64Image = await fetchImageAsBase64(imageUrl);
     newImgElement.src = `data:image/jpeg;base64,${base64Image}`;
     newDivElement.appendChild(newImgElement);
