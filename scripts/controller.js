@@ -10,21 +10,18 @@ function extractPaths(obj, currentPath = '') {
     const value = obj[key];
     if (value !== null && typeof value === 'object') {
       if (key === 'jcr:content' && value['jcr:primaryType'] === 'dam:AssetContent') {
-        // We've found an asset, add its path to the files array
         files.push(currentPath);
       } else if (value['jcr:primaryType'] === 'sling:Folder') {
-        // We've found a folder, add it to folders array and recursively process it
-        folders.push(key);
         const newPath = `${currentPath}/${key}`;
+        folders.push(newPath);
+        window.dam.folders.push(newPath);
         const { files: subFiles, folders: subFolders } = extractPaths(value, newPath);
-        // Add subFiles to window.dam.files
         if (subFiles.length > 0) {
-          window.dam.files.push(subFiles);
+          window.dam.files.push(...subFiles);
         }
-        // Add subFolders to window.dam.folders
         folders = folders.concat(subFolders);
+        window.dam.folders.push(...subFolders);
       } else {
-        // Continue traversing
         const { files: subFiles, folders: subFolders } = extractPaths(value, `${currentPath}/${key}`);
         files = files.concat(subFiles);
         folders = folders.concat(subFolders);
@@ -34,7 +31,6 @@ function extractPaths(obj, currentPath = '') {
 
   return { files, folders };
 }
-
 window.dam = { folders: [], files: [] };
 window.cmsplus.debug('dam created');
 function control() {
