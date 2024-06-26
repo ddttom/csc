@@ -39,15 +39,7 @@ window.dam = { folders: [], files: [] };
 
 async function control() {
   window.dam = {};
-  const urlParams = new URLSearchParams(window.location.search);
-  const aiParam = urlParams.get('ai');
-  if (aiParam !== null) {
-    const numericValue = parseFloat(aiParam);
-    if (!Number.isNaN(numericValue)) {
-      const targetString = `version_${numericValue.toString().padStart(2, '0')}`;
-      window.dam.sequence = window.dam.folders.indexOf(targetString);
-    }
-  }
+
   const urlString = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets.-1.json';
   const username = 'admin';
   const password = 'admin';
@@ -69,6 +61,15 @@ async function control() {
     }
     const data = await response.json();
     extractPaths(data);
+    const urlParams = new URLSearchParams(window.location.search);
+    const aiParam = urlParams.get('ai');
+    if (aiParam !== null) {
+      const numericValue = parseFloat(aiParam);
+      if (!Number.isNaN(numericValue)) {
+        const targetString = `version_${numericValue.toString().padStart(2, '0')}`;
+        window.dam.sequence = window.dam.folders.indexOf(targetString);
+      }
+    }
 
     const finalString = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets';
 
