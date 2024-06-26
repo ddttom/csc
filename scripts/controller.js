@@ -61,6 +61,7 @@ async function control() {
     }
     const data = await response.json();
     extractPaths(data);
+
     const urlParams = new URLSearchParams(window.location.search);
     const aiParam = urlParams.get('ai');
     if (aiParam !== null) {
