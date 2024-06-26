@@ -34,5 +34,5 @@ export default function decorate(block) {
     }
   }
   window.cmsplus.debug('Updating dynamic-hero-image');
-  updateDynamicImage('.dynamic-two', 0);
+  updateDynamicImage('.p-0', 0);
 }
