@@ -44,6 +44,10 @@
   flex: 1;
 }
 
+.dynamic-columns > div > .columns-img-col > div {
+  height: 100%;
+}
+
 @media (width >= 900px) { 
   .dynamic-columns-container > div {
     margin-inline: auto;
