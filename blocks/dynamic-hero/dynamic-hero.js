@@ -33,5 +33,6 @@ export default function decorate(block) {
       parent.insertAdjacentElement('afterend', pZero);
     }
   }
+  window.cmsplus.debug('Updating dynamic-hero-image');
   updateDynamicImage('.dynamic-two', 0);
 }
