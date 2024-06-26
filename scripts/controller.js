@@ -109,8 +109,8 @@ function getRandomDamNumber() {
 }
 export async function updateDynamicImage(className, imageNumber) {
   const urlParams = new URLSearchParams(window.location.search);
-  const aiParam = urlParams.get('ai');
   let sequence = getRandomDamNumber();
+  const aiParam = urlParams.get('ai');
   if (aiParam !== null) {
     const numericValue = parseFloat(aiParam);
     if (!Number.isNaN(numericValue)) {
