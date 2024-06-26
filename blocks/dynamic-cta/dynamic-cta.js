@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-absolute-path, import/no-unresolved
-import { updateDynamicImage } from '/scripts/controller.js';
+// import { updateDynamicImage } from '/scripts/controller.js';
 
 export default function decorate(block) {
   const cols = [...block.children];
@@ -19,5 +19,5 @@ export default function decorate(block) {
       }
     });
   });
-  updateDynamicImage('.dynamic-img', 2);
+  // updateDynamicImage('.dynamic-img', 2);
 }
