@@ -64,7 +64,7 @@ function control() {
       if (aiParam !== null) {
         const numericValue = parseFloat(aiParam);
         if (!Number.isNaN(numericValue)) {
-          const targetString = `version_${numericValue.toString().padStart(2, '0')}`;
+          const targetString = `/version_${numericValue.toString().padStart(2, '0')}`;
           window.dam.sequence = window.dam.folders.indexOf(targetString);
           window.cmsplus.debug(`Sequence fixed=${window.dam.sequence}`);
         }
