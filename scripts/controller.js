@@ -37,7 +37,7 @@ function extractPaths(obj, currentPath = '') {
 
 window.dam = { folders: [], files: [] };
 
-async function control() {
+function control() {
   window.dam = {};
 
   const urlString = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets.-1.json';
@@ -45,44 +45,46 @@ async function control() {
   const password = 'admin';
   const auth = `Basic ${btoa(`${username}:${password}`)}`;
 
-  try {
-    const response = await fetch(urlString, {
-      method: 'GET',
-      headers: {
-        Authorization: auth,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      mode: 'cors',
-    });
-
-    if (!response.ok) {
-      throw new Error(`Network response was not ok ${response.statusText}`);
-    }
-    const data = await response.json();
-    extractPaths(data);
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const aiParam = urlParams.get('ai');
-    if (aiParam !== null) {
-      const numericValue = parseFloat(aiParam);
-      if (!Number.isNaN(numericValue)) {
-        const targetString = `version_${numericValue.toString().padStart(2, '0')}`;
-        window.dam.sequence = window.dam.folders.indexOf(targetString);
+  return fetch(urlString, {
+    method: 'GET',
+    headers: {
+      Authorization: auth,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    mode: 'cors',
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Network response was not ok ${response.statusText}`);
       }
-    }
+      return response.json();
+    })
+    .then((data) => {
+      extractPaths(data);
 
-    const finalString = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets';
+      const urlParams = new URLSearchParams(window.location.search);
+      const aiParam = urlParams.get('ai');
+      if (aiParam !== null) {
+        const numericValue = parseFloat(aiParam);
+        if (!Number.isNaN(numericValue)) {
+          const targetString = `version_${numericValue.toString().padStart(2, '0')}`;
+          window.dam.sequence = window.dam.folders.indexOf(targetString);
+        }
+      }
 
-    // Refactored subroutine
-    window.dam.files = window.dam.files.map((folderFiles) => folderFiles.map((imagePath) => finalString + imagePath));
+      const finalString = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets';
 
-    // If you need to modify the folders array as well, you can do:
-    window.dam.folders = window.dam.folders.map((folderName) => `${finalString}/${folderName}`);
-    window.cmsplus.debug(JSON.stringify(window.dam));
-  } catch (error) {
-    console.error('Error fetching data', error);
-  }
+      window.dam.files = window.dam.files.map((folderFiles) => folderFiles.map((imagePath) => finalString + imagePath));
+      window.dam.folders = window.dam.folders.map((folderName) => `${finalString}/${folderName}`);
+      window.cmsplus.debug(JSON.stringify(window.dam));
+
+      // Dispatch an event to signal that the data is ready
+      window.dispatchEvent(new Event('damDataReady'));
+    })
+    .catch((error) => {
+      console.error('Error fetching data', error);
+    });
 }
 
 function blobToBase64(blob) {
