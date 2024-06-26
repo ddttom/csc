@@ -9,30 +9,35 @@ function extractPaths(obj, currentPath = '') {
   Object.keys(obj).forEach((key) => {
     const value = obj[key];
     if (value !== null && typeof value === 'object') {
+      const newPath = `${currentPath}/${key}`;
       if (key === 'jcr:content' && value['jcr:primaryType'] === 'dam:AssetContent') {
         files.push(currentPath);
       } else if (value['jcr:primaryType'] === 'sling:Folder') {
-        const newPath = `${currentPath}/${key}`;
         folders.push(newPath);
-        window.dam.folders.push(newPath);
         const { files: subFiles, folders: subFolders } = extractPaths(value, newPath);
         if (subFiles.length > 0) {
-          window.dam.files.push(...subFiles);
+          files.push(subFiles);
         }
         folders = folders.concat(subFolders);
-        window.dam.folders.push(...subFolders);
       } else {
-        const { files: subFiles, folders: subFolders } = extractPaths(value, `${currentPath}/${key}`);
+        const { files: subFiles, folders: subFolders } = extractPaths(value, newPath);
         files = files.concat(subFiles);
         folders = folders.concat(subFolders);
       }
     }
   });
 
-  return { files, folders };
+  window.dam = {
+    folders: [],
+    files: [],
+  };
+  // Update window.dam
+  window.dam.folders = folders.map((folder) => folder.split('/').pop());
+  window.dam.files = files;
+  window.dam.files = window.dam.files.filter((subArray) => subArray.length > 0);
 }
-window.dam = { folders: [], files: [] };
-window.cmsplus.debug('dam created');
+
+// Initialize the window.dam object
 function control() {
   const urlString = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets.-1.json';
   const username = 'admin';
