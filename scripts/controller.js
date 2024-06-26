@@ -61,6 +61,7 @@ function control() {
     .then((data) => {
       window.cmsplus.debug('json captured');
       extractPaths(data);
+      window.cmsplus.debug('paths extracted');
 
       const urlParams = new URLSearchParams(window.location.search);
       const aiParam = urlParams.get('ai');
@@ -69,7 +70,11 @@ function control() {
         if (!Number.isNaN(numericValue)) {
           const targetString = `version_${numericValue.toString().padStart(2, '0')}`;
           window.dam.sequence = window.dam.folders.indexOf(targetString);
+          window.cmsplus.debug(`Sequence fixed=${window.dam.sequence}`);
         }
+      } else {
+        window.dam.sequence = Math.floor(Math.random() * window.dam.folders.length);
+        window.cmsplus.debug(`Sequence randomized=${window.dam.sequence}`);
       }
 
       const finalString = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets';
@@ -79,14 +84,13 @@ function control() {
       window.cmsplus.debug(JSON.stringify(window.dam));
 
       // Dispatch an event to signal that the data is ready
-      window.cmsplus.debug('damDatReady Event Fired');
+      window.cmsplus.debug('damDataReady Event Fired');
       window.dispatchEvent(new Event('damDataReady'));
     })
     .catch((error) => {
       console.error('Error fetching data', error);
     });
 }
-
 function blobToBase64(blob) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -116,19 +120,11 @@ async function fetchImageAsBase64(url) {
   return blobToBase64(blob);
 }
 export async function updateDynamicImage(className, imageNumber) {
-  let sequence = 0;
-  window.cmsplus.debug(`sequence=${sequence}`);
-  if (window.dam.sequence) {
-    sequence = window.dam.sequence;
-  } else {
-    sequence = Math.floor(Math.random() * window.dam.folders.length);
-    window.cmsplus.debug(`Sequence randomized=${sequence}`);
-  }
   const dynamicElement = document.querySelector(`${className} > picture`);
   const newImgElement = document.createElement('img');
 
   try {
-    const imageUrl = window.dam.files[sequence][imageNumber];
+    const imageUrl = window.dam.files[window.dam.sequence][imageNumber];
     const base64Image = await fetchImageAsBase64(imageUrl);
     newImgElement.src = `data:image/jpeg;base64,${base64Image}`;
     dynamicElement.innerHTML = '';
