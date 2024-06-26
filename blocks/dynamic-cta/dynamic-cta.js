@@ -3,7 +3,7 @@
 // eslint-disable-next-line import/no-absolute-path, import/no-unresolved
 import { updateDynamicImage } from '/scripts/controller.js';
 
-export async function decorate(block) {
+export default function decorate(block) {
   const cols = [...block.children];
   cols.forEach((col, index) => {
     if (index === 0) {
@@ -21,5 +21,5 @@ export async function decorate(block) {
       }
     });
   });
-  await updateDynamicImage('.dynamic-img', 2);
+  updateDynamicImage('.dynamic-img', 2);
 }

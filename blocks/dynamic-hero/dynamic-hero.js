@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/no-absolute-path, import/no-unresolved
 import { updateDynamicImage } from '/scripts/controller.js';
 
-export async function decorate(block) {
+export default function decorate(block) {
   // Get all DIV children of the block
   const divEl = [...block.children].filter((child) => child.tagName === 'DIV');
 
@@ -33,5 +33,5 @@ export async function decorate(block) {
       parent.insertAdjacentElement('afterend', pZero);
     }
   }
-  await updateDynamicImage('.dynamic-two', 0);
+  updateDynamicImage('.dynamic-two', 0);
 }
