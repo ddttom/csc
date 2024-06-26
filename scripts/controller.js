@@ -2,39 +2,34 @@
 /* eslint-disable no-console */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable import/prefer-default-export */
-function extractPaths(obj, currentPath = '') {
-  let files = [];
-  let folders = [];
+function extractPaths(data) {
+  window.dam = { folders: [], files: [] };
+  const filesByFolder = {};
 
-  Object.keys(obj).forEach((key) => {
-    const value = obj[key];
-    if (value !== null && typeof value === 'object') {
-      const newPath = `${currentPath}/${key}`;
-      if (key === 'jcr:content' && value['jcr:primaryType'] === 'dam:AssetContent') {
-        files.push(currentPath);
-      } else if (value['jcr:primaryType'] === 'sling:Folder') {
-        folders.push(newPath);
-        const { files: subFiles, folders: subFolders } = extractPaths(value, newPath);
-        if (subFiles.length > 0) {
-          files.push(subFiles);
+  function traverse(obj, currentPath = '') {
+    Object.keys(obj).forEach((key) => {
+      const value = obj[key];
+      if (value !== null && typeof value === 'object') {
+        const newPath = `${currentPath}/${key}`;
+        if (value['jcr:primaryType'] === 'sling:Folder') {
+          window.dam.folders.push(key);
+          traverse(value, newPath);
+        } else if (key === 'jcr:content' && value['jcr:primaryType'] === 'dam:AssetContent') {
+          const folder = currentPath.split('/').slice(0, -1).join('/');
+          if (!filesByFolder[folder]) {
+            filesByFolder[folder] = [];
+          }
+          filesByFolder[folder].push(currentPath);
+        } else {
+          traverse(value, newPath);
         }
-        folders = folders.concat(subFolders);
-      } else {
-        const { files: subFiles, folders: subFolders } = extractPaths(value, newPath);
-        files = files.concat(subFiles);
-        folders = folders.concat(subFolders);
       }
-    }
-  });
-
-  window.dam = {
-    folders: [],
-    files: [],
-  };
-  // Update window.dam
-  window.dam.folders = folders.map((folder) => folder.split('/').pop());
-  window.dam.files = files;
-  window.dam.files = window.dam.files.filter((subArray) => subArray.length > 0);
+    });
+  }
+  traverse(data);
+  // Remove duplicates from folders
+  window.dam.folders = [...new Set(window.dam.folders)];
+  window.dam.files = Object.values(filesByFolder);
 }
 
 // Initialize the window.dam object
