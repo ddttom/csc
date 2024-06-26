@@ -105,10 +105,18 @@ async function fetchImageAsBase64(url) {
 }
 function getRandomDamNumber() {
   const sequence = window.dam.length;
-  return Math.floor(Math.random() * sequence) + 1;
+  return Math.floor(Math.random() * sequence);
 }
 export async function updateDynamicImage(className, imageNumber) {
-  const sequence = getRandomDamNumber();
+  const urlParams = new URLSearchParams(window.location.search);
+  const aiParam = urlParams.get('ai');
+  let sequence = getRandomDamNumber();
+  if (aiParam !== null) {
+    const numericValue = parseFloat(aiParam);
+    if (!Number.isNaN(numericValue)) {
+      sequence = numericValue;
+    }
+  }
   const dynamicElement = document.querySelector(className);
   const newDivElement = document.createElement('div');
   const newImgElement = document.createElement('img');
