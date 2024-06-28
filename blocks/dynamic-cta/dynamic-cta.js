@@ -22,5 +22,5 @@ export default function decorate(block) {
     });
   });
   window.cmsplus.debug('Updating dynamic-cta-image');
-  updateDynamicImage('.content-img', 2);
+  updateDynamicImage('.dynamic-img > div', 2);
 }
