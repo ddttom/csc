@@ -11,7 +11,7 @@
  */
 
 :root {
-  
+
   /* colors */
   --green-color: #8cc63f;
   --blue-color: #06c4fd;
@@ -54,7 +54,7 @@
   src: local('Arial');
 }
 
-@media (width >= 900px) {
+@media (width >=900px) {
   :root {
     --heading-font-size-xxl: 70px;
     --heading-font-size-xl: 56px;
@@ -77,7 +77,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-@media (width >= 900px) {
+@media (width >=900px) {
   body {
     font-size: var(--body-font-size-m);
   }
@@ -106,23 +106,9 @@ h6 {
   scroll-margin: calc(var(--nav-height) + 1em);
 }
 
-h1 { 
-   font-size: var(--heading-font-size-xxl); 
-   line-height: 62px;
-  }
-
-h2 {
-  font-size: var(--heading-font-size-xl); 
-  line-height: 52px;
-}
-
-h3 { 
-  font-size: var(--heading-font-size-l); 
-  line-height: 1.2px;
-=======
+h1 {
   font-size: var(--heading-font-size-xxl);
   line-height: 62px;
-  color: var(--black-color);
 }
 
 h2 {
@@ -132,31 +118,26 @@ h2 {
 }
 
 h3 {
-  font-size: var(--heading-font-size-l);
-  line-height: 1.2px;
+  font-size: var(--heading-font-size-xxl);
+  line-height: 62px;
   color: var(--black-color);
 }
 
-h4 { 
-  font-family:var(--body-font-family);
-  font-size: var(--heading-font-size-l);
-  line-height: 1.2;
-  color: var(--black-color);
-}
 
-h5 { 
-  font-size: var(--heading-font-size-s); 
-  line-height: 1.2;
-}
 
-h6 { 
-  font-size: var(--heading-font-size-xs); 
-  line-height: 32px; 
-=======
+h4 {
+  font-family: var(--body-font-family);
   font-size: var(--heading-font-size-l);
   line-height: 1.2;
   color: var(--black-color);
 }
+
+h5 {
+  font-size: var(--heading-font-size-s);
+  line-height: 1.2;
+}
+
+
 
 h6 {
   font-size: var(--heading-font-size-xs);
@@ -283,8 +264,8 @@ main .section {
 }
 */
 
-@media (width >= 900px) {
-  .section > div {
+@media (width >=900px) {
+  .section>div {
     max-width: 1200px;
     margin: auto;
   }
@@ -330,6 +311,7 @@ footer {
 .red h2 {
   color: white !important;
 }
+
 .red h3,
 .red h4 {
   color: red !important;

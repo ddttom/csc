@@ -1,3 +1,5 @@
+/* stylelint-disable no-descending-specificity */
+
 /* Dynamic columns title */
 .dynamic-columns-container > div:first-child   {
   padding-top: 2rem;
