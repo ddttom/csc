@@ -35,13 +35,12 @@ function extractPaths(data) {
 // Initialize the window.dam object
 async function control() {
   const DEFAULT_URL = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets';
-  const USERNAME = 'admin';
-  const PASSWORD = 'admin';
-
   const baseUrl = window.siteConfig?.['$meta:cscurl$'] || DEFAULT_URL;
   const urlString = `${baseUrl}.-1.json`;
 
-  const auth = `Basic ${btoa(`${USERNAME}:${PASSWORD}}`)}`;
+  const username = 'admin';
+  const password = 'admin';
+  const auth = `Basic ${btoa(`${username}:${password}`)}`;
 
   try {
     const response = await fetch(urlString, {
