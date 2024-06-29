@@ -32,28 +32,6 @@ function extractPaths(data) {
   window.dam.files = Object.values(filesByFolder);
 }
 
-function setSequence() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const aiParam = urlParams.get('ai');
-
-  if (aiParam !== null) {
-    const numericValue = parseFloat(aiParam);
-    if (!Number.isNaN(numericValue)) {
-      const targetString = `version_${numericValue.toString().padStart(2, '0')}`;
-      window.dam.sequence = window.dam.folders.indexOf(targetString);
-      window.cmsplus.debug(`Sequence fixed=${window.dam.sequence}`);
-    }
-  } else {
-    window.dam.sequence = Math.floor(Math.random() * window.dam.folders.length);
-    window.cmsplus.debug(`Sequence randomized=${window.dam.sequence}`);
-  }
-}
-
-function updateDamPaths(baseUrl) {
-  window.dam.files = window.dam.files.map((folderFiles) => folderFiles.map((imagePath) => `${baseUrl}${imagePath}`));
-  window.dam.folders = window.dam.folders.map((folderName) => `${baseUrl}/${folderName}`);
-}
-
 // Initialize the window.dam object
 async function control() {
   const DEFAULT_URL = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets';
@@ -63,6 +41,7 @@ async function control() {
 
   const baseUrl = window.siteConfig?.['$meta:cscurl$'] || DEFAULT_URL;
   const urlString = `${baseUrl}.-1.json`;
+
   const auth = `Basic ${btoa(`${USERNAME}:${PASSWORD}`)}`;
 
   try {
@@ -84,9 +63,6 @@ async function control() {
     window.cmsplus.debug('JSON captured');
     extractPaths(data);
     window.cmsplus.debug('Paths extracted');
-
-    setSequence();
-    updateDamPaths(baseUrl);
 
     window.cmsplus.debug(JSON.stringify(window.dam));
   } catch (error) {
