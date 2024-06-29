@@ -34,7 +34,10 @@ function extractPaths(data) {
 
 // Initialize the window.dam object
 async function control() {
-  const urlString = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets.-1.json';
+  const DEFAULT_URL = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets';
+  const baseUrl = window.siteConfig?.['$meta:cscurl$'] || DEFAULT_URL;
+  const urlString = `${baseUrl}.-1.json`;
+
   const username = 'admin';
   const password = 'admin';
   const auth = `Basic ${btoa(`${username}:${password}`)}`;
@@ -73,10 +76,8 @@ async function control() {
       window.cmsplus.debug(`Sequence randomized=${window.dam.sequence}`);
     }
 
-    const finalString = 'http://localhost:4502/content/dam/comwrap-uk-demo-assets/csc-demo-eds-assets';
-
-    window.dam.files = window.dam.files.map((folderFiles) => folderFiles.map((imagePath) => finalString + imagePath));
-    window.dam.folders = window.dam.folders.map((folderName) => `${finalString}/${folderName}`);
+    window.dam.files = window.dam.files.map((folderFiles) => folderFiles.map((imagePath) => baseUrl + imagePath));
+    window.dam.folders = window.dam.folders.map((folderName) => `${baseUrl}/${folderName}`);
     window.cmsplus.debug(JSON.stringify(window.dam));
   } catch (error) {
     console.error('Error fetching data', error);
