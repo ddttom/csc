@@ -41,7 +41,7 @@ async function control() {
   const baseUrl = window.siteConfig?.['$meta:cscurl$'] || DEFAULT_URL;
   const urlString = `${baseUrl}.-1.json`;
 
-  const auth = `Basic ${btoa(`${USERNAME}:${PASSWORD}`)}`;
+  const auth = `Basic ${btoa(`${USERNAME}:${PASSWORD}}`)}`;
 
   try {
     const response = await fetch(urlString, {
@@ -55,20 +55,35 @@ async function control() {
     });
 
     if (!response.ok) {
-      throw new Error(`Network response was not ok: ${response.statusText}`);
+      throw new Error(`Network response was not ok ${response.statusText}`);
     }
 
     const data = await response.json();
-    window.cmsplus.debug('JSON captured');
+    window.cmsplus.debug('json captured');
     extractPaths(data);
-    window.cmsplus.debug('Paths extracted');
+    window.cmsplus.debug('paths extracted');
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const aiParam = urlParams.get('ai');
+    if (aiParam !== null) {
+      const numericValue = parseFloat(aiParam);
+      if (!Number.isNaN(numericValue)) {
+        const targetString = `version_${numericValue.toString().padStart(2, '0')}`;
+        window.dam.sequence = window.dam.folders.indexOf(targetString);
+        window.cmsplus.debug(`Sequence fixed=${window.dam.sequence}`);
+      }
+    } else {
+      window.dam.sequence = Math.floor(Math.random() * window.dam.folders.length);
+      window.cmsplus.debug(`Sequence randomized=${window.dam.sequence}`);
+    }
+
+    window.dam.files = window.dam.files.map((folderFiles) => folderFiles.map((imagePath) => baseUrl + imagePath));
+    window.dam.folders = window.dam.folders.map((folderName) => `${baseUrl}/${folderName}`);
     window.cmsplus.debug(JSON.stringify(window.dam));
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('Error fetching data', error);
   }
 }
-
 function blobToBase64(blob) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
